@@ -1,10 +1,7 @@
-package com.jamshedalamqaderi.cmp.theme
+package com.jamshedalamqaderi.cmp.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.lightColorScheme
 import com.example.compose.md_theme_dark_background
 import com.example.compose.md_theme_dark_error
 import com.example.compose.md_theme_dark_errorContainer
@@ -65,7 +62,7 @@ import com.example.compose.md_theme_light_tertiary
 import com.example.compose.md_theme_light_tertiaryContainer
 
 
-private val LightColors = lightColorScheme(
+val LightColorScheme = lightColorScheme(
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
     primaryContainer = md_theme_light_primaryContainer,
@@ -98,7 +95,7 @@ private val LightColors = lightColorScheme(
 )
 
 
-private val DarkColors = darkColorScheme(
+val DarkColorScheme = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
     primaryContainer = md_theme_dark_primaryContainer,
@@ -129,20 +126,3 @@ private val DarkColors = darkColorScheme(
     outlineVariant = md_theme_dark_outlineVariant,
     scrim = md_theme_dark_scrim,
 )
-
-@Composable
-fun AppTheme(
-  useDarkTheme: Boolean = isSystemInDarkTheme(),
-  content: @Composable() () -> Unit
-) {
-  val colors = if (!useDarkTheme) {
-    LightColors
-  } else {
-    DarkColors
-  }
-
-  MaterialTheme(
-    colorScheme = colors,
-    content = content
-  )
-}

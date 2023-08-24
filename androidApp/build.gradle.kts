@@ -8,12 +8,12 @@ val ktorVersion: String by project
 val decomposeVersion: String by project
 
 android {
-    compileSdk = 33
+    compileSdk = 34
     namespace = "com.jamshedalamqaderi.cmptemplate.android"
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -31,15 +31,13 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
 kotlin {
-    android{
-
-    }
+    androidTarget()
     sourceSets {
         val androidMain by getting {
             dependencies {

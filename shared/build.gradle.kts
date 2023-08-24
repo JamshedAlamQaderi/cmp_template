@@ -25,7 +25,7 @@ val mokoResourceVersion: String by project
 kotlin {
     targetHierarchy.default()
 
-    android()
+    androidTarget()
 
     listOf(
         iosX64(),
@@ -89,6 +89,7 @@ kotlin {
         val iosMain by getting {
             dependencies {
                 implementation("app.cash.sqldelight:native-driver:$sqlDelightVersion")
+                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
             }
         }
     }
@@ -113,6 +114,11 @@ android {
 
     defaultConfig {
         minSdk = 21
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 

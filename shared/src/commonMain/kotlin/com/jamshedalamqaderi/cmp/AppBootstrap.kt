@@ -13,10 +13,12 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.scale
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.jamshedalamqaderi.cmp.features.common.domain.services.navigation.NavigationManagerService
+import com.jamshedalamqaderi.cmp.features.common.domain.services.navigation.NavigationService
 import com.jamshedalamqaderi.cmp.features.common.presentation.AdaptiveDesignLayout
+import com.jamshedalamqaderi.cmp.features.common.presentation.AppTheme
 import com.jamshedalamqaderi.cmp.features.common.presentation.Center
-import com.jamshedalamqaderi.cmp.theme.AppTheme
 import org.koin.compose.KoinApplication
+import org.koin.dsl.module
 
 @Composable
 fun AppBootstrap(
@@ -25,10 +27,17 @@ fun AppBootstrap(
     navigationManagerService: NavigationManagerService
 ) {
     KoinApplication(application = {
-        modules()
+        modules(
+            KoinPlatformModule,
+            KoinCommonModule,
+            module {
+                single<NavigationService> { navigationManagerService }
+            }
+        )
     }) {
         AppTheme(
-            useDarkTheme = useDarkTheme
+            useDarkTheme = useDarkTheme,
+            useDynamicColor = useDynamicColor
         ) {
             Surface(
                 modifier = Modifier.fillMaxSize(),
