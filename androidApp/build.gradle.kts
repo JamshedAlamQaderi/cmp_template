@@ -1,44 +1,51 @@
 plugins {
+    kotlin("multiplatform")
     id("com.android.application")
-    kotlin("android")
+    id("org.jetbrains.compose")
 }
 
+val ktorVersion: String by project
+val decomposeVersion: String by project
+
 android {
-    namespace = "com.trackfit.android"
-    compileSdk = 34
+    compileSdk = 33
+    namespace = "com.jamshedalamqaderi.cmptemplate.android"
+
     defaultConfig {
-        applicationId = "com.trackfit.android"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.7"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
+
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("debug")
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
-dependencies {
-    implementation(project(":shared"))
+kotlin {
+    android{
+
+    }
+    sourceSets {
+        val androidMain by getting {
+            dependencies {
+                implementation(project(":shared"))
+                implementation("com.arkivanov.decompose:decompose:$decomposeVersion")
+            }
+        }
+    }
 }
