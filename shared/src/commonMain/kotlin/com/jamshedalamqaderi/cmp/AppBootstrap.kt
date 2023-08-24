@@ -19,11 +19,17 @@ import com.jamshedalamqaderi.cmp.theme.AppTheme
 import org.koin.compose.KoinApplication
 
 @Composable
-fun App(navigationManagerService: NavigationManagerService) {
+fun AppBootstrap(
+    useDarkTheme: Boolean = false,
+    useDynamicColor: Boolean = false,
+    navigationManagerService: NavigationManagerService
+) {
     KoinApplication(application = {
         modules()
     }) {
-        AppTheme {
+        AppTheme(
+            useDarkTheme = useDarkTheme
+        ) {
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colors.background,
