@@ -1,22 +1,32 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec
+
 plugins {
     kotlin("multiplatform")
-    id("com.android.library")
     id("org.jetbrains.compose")
+    id("com.android.library")
+    id("app.cash.sqldelight")
+    id("kotlin-parcelize")
+    kotlin("plugin.serialization")
+    id("com.codingfeline.buildkonfig")
     id("dev.icerock.mobile.multiplatform-resources")
 }
+
+val coroutineVersion: String by project
+val dateTimeVersion: String by project
+val sqlDelightVersion: String by project
+val koinVersion: String by project
+val koinComposeVersion: String by project
+val mokoMvvmVersion: String by project
+val decomposeVersion: String by project
+val ktorVersion: String by project
+val mokoResourceVersion: String by project
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
 
-    android {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
-    }
-    
+    android()
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -38,33 +48,63 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
 
-                implementation("dev.chrisbanes.material3:material3-window-size-class-multiplatform:0.3.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
+
+                implementation("com.arkivanov.decompose:decompose:$decomposeVersion")
+                implementation("com.arkivanov.decompose:extensions-compose-jetbrains:$decomposeVersion")
+
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
+                implementation("io.insert-koin:koin-core:$koinVersion")
+                implementation("io.insert-koin:koin-compose:$koinComposeVersion")
+
+                implementation("dev.icerock.moko:mvvm-core:$mokoMvvmVersion")
+                implementation("dev.icerock.moko:mvvm-compose:$mokoMvvmVersion")
+                implementation("dev.icerock.moko:mvvm-flow:$mokoMvvmVersion")
+                implementation("dev.icerock.moko:mvvm-flow-compose:$mokoMvvmVersion")
+
+                // Ktor
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation("dev.icerock.moko:mvvm-test:$mokoMvvmVersion")
             }
         }
-        val androidMain by getting{
-            dependencies{
+        val androidMain by getting {
+            dependencies {
                 api("androidx.activity:activity-compose:1.7.2")
                 api("androidx.core:core-ktx:1.10.1")
+
+                implementation("app.cash.sqldelight:android-driver:$sqlDelightVersion")
+                implementation("io.insert-koin:koin-android:$koinVersion")
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+            }
+        }
+
+        val iosMain by getting {
+            dependencies {
+                implementation("app.cash.sqldelight:native-driver:$sqlDelightVersion")
             }
         }
     }
 }
 
 dependencies {
-    commonMainApi("dev.icerock.moko:resources-compose:0.23.0")
+    commonMainApi("dev.icerock.moko:resources-compose:$mokoResourceVersion")
+
 }
 
 multiplatformResources {
-    multiplatformResourcesPackage = "com.trackfit.shared" // required
+    multiplatformResourcesPackage =
+        "com.jamshedalamqaderi.cmptemplate.shared" // required
 }
 
 android {
-    namespace = "com.trackfit.shared"
+    namespace = "com.jamshedalamqaderi.cmptemplate.shared"
     compileSdk = 34
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -72,5 +112,27 @@ android {
 
     defaultConfig {
         minSdk = 21
+    }
+}
+
+sqldelight {
+    databases {
+        create("MainDatabase") {
+            packageName.set("com.jamshedalamqaderi.cmpteplate.shared.db")
+            generateAsync.set(true)
+        }
+    }
+}
+
+buildkonfig {
+    packageName = "com.jamshedalamqaderi.cmptemplate.shared.config"
+
+    defaultConfigs {
+        buildConfigField(
+            FieldSpec.Type.STRING,
+            "HOST",
+            "https://github.com",
+            const = true
+        )
     }
 }
