@@ -20,6 +20,7 @@ val mokoMvvmVersion: String by project
 val decomposeVersion: String by project
 val ktorVersion: String by project
 val mokoResourceVersion: String by project
+val loggingVersion: String by project
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
@@ -35,6 +36,7 @@ kotlin {
         it.binaries.framework {
             baseName = "shared"
             isStatic = true
+            export("com.arkivanov.essenty:lifecycle:1.1.0")
         }
     }
 
@@ -54,6 +56,7 @@ kotlin {
 
                 implementation("com.arkivanov.decompose:decompose:$decomposeVersion")
                 implementation("com.arkivanov.decompose:extensions-compose-jetbrains:$decomposeVersion")
+                api("com.arkivanov.essenty:lifecycle:1.1.0")
 
                 implementation("io.insert-koin:koin-core:$koinVersion")
                 implementation("io.insert-koin:koin-compose:$koinComposeVersion")
@@ -68,6 +71,8 @@ kotlin {
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+
+                implementation("org.lighthousegames:logging:$loggingVersion")
             }
         }
         val commonTest by getting {

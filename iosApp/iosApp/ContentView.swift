@@ -2,14 +2,13 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
+    private let lifecycleRegistry: LifecycleRegistry
+
+    init(_ lifecycleRegistry: LifecycleRegistry) {
+        self.lifecycleRegistry = lifecycleRegistry
+    }
 
 	var body: some View {
-		ComposeView()
-	}
-}
-
-struct ContentView_Previews: PreviewProvider {
-	static var previews: some View {
-		ContentView()
+        ComposeView(lifecycleRegistry: self.lifecycleRegistry)
 	}
 }

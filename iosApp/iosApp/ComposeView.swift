@@ -7,7 +7,13 @@ struct ComposeView: UIViewControllerRepresentable{
         
     }
     
+     private let lifecycleRegistry: LifecycleRegistry
+
+     init(lifecycleRegistry: LifecycleRegistry) {
+         self.lifecycleRegistry = lifecycleRegistry
+     }
+    
     func makeUIViewController(context: Context) -> some UIViewController {
-        MainAppKt.MainApp()
+        MainAppKt.MainApp(lifecycleRegistry: self.lifecycleRegistry)
     }
 }

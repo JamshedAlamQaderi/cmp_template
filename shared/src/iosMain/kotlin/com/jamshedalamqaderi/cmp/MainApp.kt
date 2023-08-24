@@ -6,14 +6,16 @@ import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.jamshedalamqaderi.cmp.features.common.domain.services.navigation.NavigationManagerServiceImpl
 import com.jamshedalamqaderi.cmp.features.common.domain.services.navigation.Routes
+import org.lighthousegames.logging.logging
 import platform.UIKit.UIScreen
 import platform.UIKit.UIUserInterfaceStyle
 
+val logger = logging("MainApp")
+
 @OptIn(ExperimentalDecomposeApi::class)
-fun MainApp() = ComposeUIViewController {
+fun MainApp(lifecycleRegistry: LifecycleRegistry) = ComposeUIViewController {
     val isDarkTheme =
         UIScreen.mainScreen.traitCollection.userInterfaceStyle == UIUserInterfaceStyle.UIUserInterfaceStyleDark
-    val lifecycleRegistry = LifecycleRegistry()
     val navigationManagerService = NavigationManagerServiceImpl(
         componentContext = DefaultComponentContext(lifecycleRegistry),
         routeList = Routes
