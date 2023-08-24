@@ -8,7 +8,7 @@ plugins {
     id("kotlin-parcelize")
     kotlin("plugin.serialization")
     id("com.codingfeline.buildkonfig")
-    id("dev.icerock.mobile.multiplatform-resources")
+//    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 val coroutineVersion: String by project
@@ -50,14 +50,15 @@ kotlin {
                 implementation(compose.components.resources)
 
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
 
                 implementation("com.arkivanov.decompose:decompose:$decomposeVersion")
                 implementation("com.arkivanov.decompose:extensions-compose-jetbrains:$decomposeVersion")
 
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
                 implementation("io.insert-koin:koin-core:$koinVersion")
                 implementation("io.insert-koin:koin-compose:$koinComposeVersion")
 
+//                implementation("dev.icerock.moko:resources-compose:$mokoResourceVersion")
                 implementation("dev.icerock.moko:mvvm-core:$mokoMvvmVersion")
                 implementation("dev.icerock.moko:mvvm-compose:$mokoMvvmVersion")
                 implementation("dev.icerock.moko:mvvm-flow:$mokoMvvmVersion")
@@ -95,15 +96,10 @@ kotlin {
     }
 }
 
-dependencies {
-    commonMainApi("dev.icerock.moko:resources-compose:$mokoResourceVersion")
-
-}
-
-multiplatformResources {
-    multiplatformResourcesPackage =
-        "com.jamshedalamqaderi.cmptemplate.shared" // required
-}
+// multiplatformResources {
+//    multiplatformResourcesPackage =
+//        "com.jamshedalamqaderi.cmptemplate.shared"
+// }
 
 android {
     namespace = "com.jamshedalamqaderi.cmptemplate.shared"
@@ -117,8 +113,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    kotlin {
+        jvmToolchain(11)
     }
 }
 

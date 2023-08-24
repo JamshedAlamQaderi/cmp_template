@@ -13,11 +13,11 @@ import dev.icerock.moko.mvvm.compose.viewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(
-    viewModel: HomeScreenViewModel = getViewModel(
+fun HomeScreen() {
+    val viewModel: HomeScreenViewModel = getViewModel(
         true,
-        viewModelFactory { HomeScreenViewModel() })
-) {
+        viewModelFactory { HomeScreenViewModel() }
+    )
     Scaffold(
         topBar = {
             TopAppBar(title = {

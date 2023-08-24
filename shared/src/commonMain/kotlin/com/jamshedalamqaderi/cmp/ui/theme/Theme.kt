@@ -61,7 +61,6 @@ import com.example.compose.md_theme_light_surfaceVariant
 import com.example.compose.md_theme_light_tertiary
 import com.example.compose.md_theme_light_tertiaryContainer
 
-
 val LightColorScheme = lightColorScheme(
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
@@ -93,7 +92,6 @@ val LightColorScheme = lightColorScheme(
     outlineVariant = md_theme_light_outlineVariant,
     scrim = md_theme_light_scrim,
 )
-
 
 val DarkColorScheme = darkColorScheme(
     primary = md_theme_dark_primary,

@@ -12,7 +12,6 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import kotlin.native.concurrent.ThreadLocal
 
-
 @ThreadLocal
 private object AdaptiveScreenSize {
     var widthMultiplier: Float = 1F
@@ -32,16 +31,16 @@ fun AdaptiveDesignLayout(designSize: IntSize, content: @Composable () -> Unit) {
     val density = LocalDensity.current.density
     Box(
         Modifier
-        .fillMaxSize()
-        .onGloballyPositioned { coordinates ->
-            val displaySize = coordinates.size
-            AdaptiveScreenSize.widthMultiplier =
-                displaySize.width.toFloat() / designSize.width
-            AdaptiveScreenSize.heightMultiplier =
-                displaySize.height.toFloat() / designSize.height
-            AdaptiveScreenSize.density = density
-            size.value = displaySize
-        }
+            .fillMaxSize()
+            .onGloballyPositioned { coordinates ->
+                val displaySize = coordinates.size
+                AdaptiveScreenSize.widthMultiplier =
+                    displaySize.width.toFloat() / designSize.width
+                AdaptiveScreenSize.heightMultiplier =
+                    displaySize.height.toFloat() / designSize.height
+                AdaptiveScreenSize.density = density
+                size.value = displaySize
+            }
     )
     if (size.value != IntSize.Zero) {
         content.invoke()

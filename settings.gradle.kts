@@ -33,7 +33,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CMP TEMPLATE"
+rootProject.name = "CMP_TEMPLATE"
 
 include(":androidApp")
 include(":shared")

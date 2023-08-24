@@ -1,9 +1,8 @@
-package com.trackfit.android
+package com.jamshedalamqaderi.cmptemplate.android
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.isSystemInDarkTheme
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.defaultComponentContext
 import com.jamshedalamqaderi.cmp.AppBootstrap
@@ -19,7 +18,7 @@ class MainActivity : ComponentActivity() {
             routeList = Routes
         )
         setContent {
-            AppBootstrap(useDarkTheme = isSystemInDarkTheme(), false, navigationManagerService)
+            AppBootstrap(useDarkTheme = true, false, navigationManagerService)
         }
     }
 }
